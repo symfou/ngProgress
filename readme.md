@@ -71,6 +71,12 @@ ngProgress.setHeight('10px');
 ngProgress.setColor('#fff');
 ```
 
+* **addProgressElementClass** - Adds custom class to base element, while it's progressing (#ngProgress-container)
+
+```javascript
+ngProgress.addProgressElementClass('my-class');
+```
+
 * **status** - Returns on how many percent the progressbar is at. Should'nt be needed
 
 ```javascript

@@ -5,7 +5,7 @@ angular.module('ngProgress.provider', ['ngProgress.directive'])
 				return ['$document', '$window', '$compile', '$rootScope', '$timeout', function($document, $window, $compile, $rootScope, $timeout) {
 						this.autoStyle = true;
 						this.count = 0;
-            this.height = '2px';
+						this.height = '2px';
 						this.$scope = $rootScope.$new();
 						this.color = 'firebrick';
 						this.parent = $document.find('body')[0];
@@ -35,6 +35,7 @@ angular.module('ngProgress.provider', ['ngProgress.directive'])
                     // TODO Use requestAnimationFrame instead of setInterval
                     // https://developer.mozilla.org/en-US/docs/Web/API/window.requestAnimationFrame
                     this.show();
+					this.progressbarEl.addClass(this.progressElementClass);
                     var self = this;
                     clearInterval(this.intervalCounterId);
                     this.intervalCounterId = setInterval(function () {
@@ -79,6 +80,14 @@ angular.module('ngProgress.provider', ['ngProgress.directive'])
                     }
                     return this.color;
                 };
+				// Add custome CLASS (juste while progress) to progressbarEl element (like as background..). Use any valid HTML (fix problems with timeout...)
+                // css
+                this.addProgressElementClass = function(new_class) {
+                    if (new_class !== undefined) {
+						this.progressElementClass = new_class;
+                        this.progressbarEl.addClass(new_class);
+                    }
+                };
                 this.hide = function() {
                     this.progressbarEl.children().css('opacity', '0');
                     var self = this;
@@ -88,6 +97,7 @@ angular.module('ngProgress.provider', ['ngProgress.directive'])
                             self.show();
                         }, 500);
                     }, 500);
+					this.progressbarEl.removeClass(this.progressElementClass) //remove added class
                 };
                 this.show = function () {
                     var self = this;
